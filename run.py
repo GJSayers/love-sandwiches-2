@@ -102,6 +102,19 @@ def calculate_surplus_data(sales_row):
 
     return surplus_data
 
+def get_last_5_sales_days():
+    """
+    retreive the last 5 days sales data to predict stock needed
+    """
+    sales = SHEET.worksheet("sales")
+    # row and column indexing starts at 1 not zero
+    columns = []
+    # range cannot be 6 because the first ind would be 0 and this does not tie in with the 1-based indexing on the sheet.
+    for ind in range(1, 7):
+        column = sales.col_values(ind)
+        columns.append(column[-5:])
+    return columns
+
 
 def main():
     """
@@ -115,4 +128,6 @@ def main():
 
 
 print("Welcome to love sandwiches Data Automation")
-main()
+# main()
+get_last_5_sales_days()
+sales_columns = get_last_5_sales_days()
