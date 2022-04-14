@@ -85,6 +85,7 @@ def update_worksheet(data, worksheet):
     worksheet_to_update.append_row(data)
     print(f"{worksheet} worksheet updated successfully. \n")
 
+
 def calculate_surplus_data(sales_row):
     """
     Compare sales data against stock values to calculate surplus data.
@@ -128,6 +129,18 @@ def calculate_stock_data(data):
         new_stock_data.append(round(stock_num))
     return new_stock_data
 
+
+def get_stock_values(data):
+    """
+    Make a dictionary of the headings and the stock values to print
+    stock needed for the next day
+    """
+    headings = SHEET.worksheet("stock").row_values(1)
+    stock_dict = dict(zip(headings, data))
+    print(stock_dict)
+    return stock_dict
+
+
 def main():
     """
     Run all programme fuctions
@@ -140,6 +153,7 @@ def main():
     sales_columns = get_last_5_sales_days()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    get_stock_values(data)
 
 
 print("Welcome to love sandwiches Data Automation")
